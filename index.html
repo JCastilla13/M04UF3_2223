@@ -16,35 +16,56 @@ const config = {
 		create: crear,
 		update: actualiza
 		}
-};
+	};
 
 const game = new Phaser.Game(config);
 
 let player;
+let enemies;
+
+let key_left;
+let key_right;
+let key_up;
+let key_down;
+
 
 function precarga ()
 {
- this.load.image("player-img", "player.png");
-
+	this.load.image("player-img", "player.png");
+ 	
 }
 
 function crear ()
 {
- player = this.add.image(64, 64, "player-img");
 
+ player = this.add.image(config.width/2, config.height/2, "player-img");
+
+	key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+	key_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+	key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+	key_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 }
 
 function actualiza ()
 {
 
-player.x += 1;
-player.y += 1;
+if (key_left.isDown){
+	player.x -= 10;
+  }
+
+else if (key_right.isDown){
+	player.x += 10;
+  }
+
+if (key_up.isDown){
+	player.y -= 10;
+  }
+
+else if (key_down.isDown){
+	player.y += 10;
+  }
 
 }
-
-
-
-
 
 </script>
 </body>
