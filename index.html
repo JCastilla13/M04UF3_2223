@@ -21,7 +21,24 @@ const config = {
 const game = new Phaser.Game(config);
 
 let player;
-let enemies;
+
+let enemies = [];
+let enemy_padding = 128;
+let enemies_pos = {
+	{x: 128, y: 128},
+	{x: enemy_padding, y: enemy_padding},
+	{x: config.width/2, enemy_padding},
+	{x: config.width - enemy_padding, y: enemy_padding},
+
+	{x: config.width - enemy_padding, y: config.height/2},
+	
+	{x: config.width - enemy_padding, y: config.height - enemy_padding},
+	{x: config.width/2 - config.height, y: config.height - enemy_padding},
+	{x: enemy_padding - config.height, y: config.height - enemy_padding},
+
+}
+
+let player_speed = 8;
 
 let key_left;
 let key_right;
@@ -40,6 +57,9 @@ function crear ()
 
  player = this.add.image(config.width/2, config.height/2, "player-img");
 
+	for (let i = 0; i < enemy_pos.length; i++){
+		enemies.push(this.add.image(enemies_pos[i].x, enemies_pos[i].y, "player-img"));}
+
 	key_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
 	key_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 	key_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -50,19 +70,19 @@ function actualiza ()
 {
 
 if (key_left.isDown){
-	player.x -= 10;
+	player.x -= player_speed;
   }
 
 else if (key_right.isDown){
-	player.x += 10;
+	player.x += player_speed;
   }
 
 if (key_up.isDown){
-	player.y -= 10;
+	player.y -= player_speed;
   }
 
 else if (key_down.isDown){
-	player.y += 10;
+	player.y += player_speed;
   }
 
 }
