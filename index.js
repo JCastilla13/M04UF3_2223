@@ -3,9 +3,13 @@
 
 
 const http = require("http");
-const fs = require("fs");
+//const fs = require("fs");
+const files_static = require("node-static");
+
+let files = new files_static.Server("./public");
 
 
+/*
 function send_index (response)
 {
 	fs.readFile("index.html", function(err, data){
@@ -36,12 +40,13 @@ function send_player (response)
 	});
 }
 
-
+*/
 http.createServer(function(request, response){
-console.log(request.url);
+	request.addListener('end', function (){
+		files.serve(request, response);
+	}).resume();
 
-let url = request.url.split("/");
-
+/*
 	switch (url[1]){
 		case "player.png":
 			send_player(response);
@@ -51,4 +56,5 @@ let url = request.url.split("/");
 		default:
 			send_index(response);
 	}
+	*/
 }).listen(6969);
