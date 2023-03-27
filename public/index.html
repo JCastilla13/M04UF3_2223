@@ -16,6 +16,9 @@
 <li><input type="radio" name="difficult" value="hard" id="hard" /> <label for="hard">Dificil</label></li>
 </ul>
 
+<input type="button" id="increment" value="Incremento" onclick="ChooseIncrement(); return false;"/>
+<input type="button" id="decrement" value="Decremento" onclick="ChooseDecrement(); return false;"/>
+
 <input type="button" id="playGame" value="Jugar" onclick="Game(); return false;"/>
 
 </form>
@@ -72,6 +75,8 @@ let score_text;
 let timer = 0;
 let timer_text;
 
+let timerCount;
+
 let key_left;
 let key_right;
 let key_up;
@@ -86,6 +91,16 @@ function ChooseDifficult()
 			return chooseDif[i].id;
 		}
 	}	
+}
+
+function ChooseIncrement ()
+{
+	timerCount = "increment";
+}
+
+function ChooseDecrement () 
+{
+	timerCount = "decrement";
 }
 
 function precarga ()
@@ -136,21 +151,33 @@ let last_y = config.width/2;
 
 function Game() 
 {
-	difficult = ChooseDifficult();
+		difficult = ChooseDifficult();
 
-	setInterval(() => {
-		weapon.visible = true;
-		gb.physics.world.enable(weapon);
-		setTimeout(() => {
-			weapon.visible = false;
-			gb.physics.world.disable(weapon);
-		}, 400);
-	}, 2000);
-	
-	setInterval(() => {	
-		timer++;
-		timer_text.setText("Time: " + timer);
-	}, 1000);
+		setInterval(() => {
+			weapon.visible = true;
+			gb.physics.world.enable(weapon);
+			setTimeout(() => {
+				weapon.visible = false;
+				gb.physics.world.disable(weapon);
+			}, 400);
+		}, 2000);	
+
+			if (timerCount === "decrement") {
+				timer = 60;
+		}
+		const interval = setInterval(() => {
+			if (timerCount === "increment") {
+				timer++;
+		} 
+			else if (timerCount === "decrement") {
+				timer--;
+		}
+				timer_text.setText("Time: " + timer);
+
+			if (timer === 0 && timerCount === "decrement") {
+				clearInterval(interval);
+			}
+		}, 1000);
 
 	setInterval(() => {
 		switch(difficult) {
@@ -252,7 +279,7 @@ function actualiza ()
 		this.physics.moveToObject(enemies[i], player);		
 	
 			if (this.physics.collide(weapon, enemies[i])) {
-				console.log("Has hecho contacto con el enemigo número "+i);
+				console.log("Has hecho contacto con el enemigo numero "+i);
 				enemies[i].visible = false;
 
 				this.physics.world.disable(enemies[i]);
