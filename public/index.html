@@ -51,19 +51,19 @@ let enemies = [];
 let enemy_padding = 200;
 let enemies_pos = [
 	
-	{x: -enemy_padding, y: enemy_padding},
-	{x: config.width/2, y:  -enemy_padding},
-	{x: config.width - enemy_padding, y: -enemy_padding},
+	{x: -50, y: enemy_padding - 150},
+	{x: config.width/2, y: -50},
+	{x: config.width - enemy_padding, y: -50},
 
-	{x: config.width + enemy_padding, y: config.height/2},
-	{x: -enemy_padding/2 - enemy_padding, y: config.height},
+	{x: config.width + 50, y: config.height/2},
+	{x: enemy_padding/2 - 150, y: config.height/2},
 	
-	{x: config.width - enemy_padding, y: config.height + enemy_padding},
-	{x: config.width/2, y: config.height + enemy_padding},
-	{x: enemy_padding * 6, y: config.height/2 - enemy_padding},
+	{x: config.width + 50, y: config.height},
+	{x: config.width/2, y: config.height + 50},
+	{x: enemy_padding * 5, y: config.height/2 - enemy_padding},
 
-	{x:enemy_padding, y: config.height + enemy_padding},
-	{x:-enemy_padding, y: config.height}
+	{x:enemy_padding, y: config.height + 50},
+	{x:-enemy_padding + 150, y: config.height}
 
 ];
 
